@@ -1,0 +1,2 @@
+FLASK_APP=blagoblag.py
+FLASK_DEBUG=1

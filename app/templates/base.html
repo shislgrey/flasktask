@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Blagoblag</title>
+    {% else %}
+    <title>Welcome to My Blag!</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>Blag: <a href="/index">Home</a></div>
+    <hr />
+    {% block content %}{% endblock %}
+  </body>
+</html>
