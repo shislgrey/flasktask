@@ -1,3 +1,4 @@
+from app import login
 from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
@@ -31,3 +32,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return 'Post {}>'.format(self.body)
+    
+@login.user_loader
+def load_user(id):
+    return db.session.get(User, int(id))
