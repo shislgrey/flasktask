@@ -19,16 +19,7 @@ def index():
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
+    posts = db.session.scalars(current_user.following_posts()).all()
     return render_template("index.html", title='Home Page', form=form, posts=posts)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -139,3 +130,10 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
+
+@app.route('/explore')
+@login_required
+def explore():
+    query = sa.select(Post).order_by(Post.timestamp.desc())
+    posts = db.session.scalars(query).all()
+    return render_template('index.html', title='Explore', posts=posts)
