@@ -1,26 +1,16 @@
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - Blagoblag</title>
-    {% else %}
-    <title>Welcome to My Blag!</title>
-    {% endif %}
-  </head>
-  <body>
-    <h1>Hello, {{ user.username }}!</h1>
-    {% for post in posts %}
-    <div>
-      <p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
-    </div>
-    {% endfor %}
-  </body>
-</html> -->
-
 {% extends "base.html" %} {% block content %}
 <h1>Hi, {{ current_user.username }}!</h1>
+<form action="" method="post">
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.post.label }}<br />
+    {{ form.post(cols=32, rows=4) }}<br />
+    {% for error in form.post.errors %}
+    <span style="color: red">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  <p>{{ form.submit() }}</p>
+</form>
 {% for post in posts %}
-<div>
-  <p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
-</div>
+<p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
 {% endfor %} {% endblock %}
